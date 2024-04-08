@@ -15,12 +15,16 @@ This project investigates the reproducibility of microbial community assembly us
 - ggplot2 3.4.4
 
 ### FlashWeave
+PLACEHOLDER
 
 ### functionInk
+PLACEHOLDER
 
 ## Installation
+PLACEHOLDER
 
 ## Usage
+PLACEHOLDER
 
 ## Repository contents
 
@@ -37,21 +41,19 @@ For each of the 4 networks (starting communities ignoring classes, starting comm
 - #_network_data.tsv : FlashWeave output converted into functionInk input format.
 
 ### Code
-- ThirdIteration.ipynb : current iteration of my project's associated Jupyter notebook. Includes the steps of the project's pipeline.
-- SecondIteration.ipynb : previous iteration. 
-- FirstIteration.ipynb : previous iteration. Describes different co-occurrence calculation methods.
+- GraingerResearchProjectPipeline.ipynb : current iteration of my project's associated Jupyter notebook. Includes the steps of the project's pipeline.
 - /functionInk : clone of the functionInk repository, available from: https://github.com/apascualgarcia/functionInk
 
 ### Results
-- Clusters-NL_Average_StopStep-#_network_data.tsv
-- #_network_cytoscape_viz_1.png
-- #_Plot_PartitionDensityVsStep.pdf
-- HistCompact-NL_Average_NoStop_#_network_data.tsv
-- HistCompact-NL_Average_StopStep-#_network_data.tsv
-- HistExtend-NL_Average_NoStop_#_network_data.tsv
-- HistExtend-NL_Average_StopStep_#_network_data.tsv
-- Nodes-Similarities_#_network_data.tsv
-- Partition-NL_Average-StopStep-#_network_data.tsv
+- Clusters-NL_Average_StopStep-#_network_data.tsv : functionInk output describing the contents of each cluster.
+- #_network_cytoscape_viz_1.png : Cytoscape visualisations of networks, created by following the functionInk vignette.
+- #_Plot_PartitionDensityVsStep.pdf : plots of the partition density at each clustering step, during the running of functionInk.
+- HistCompact-NL_Average_NoStop_#_network_data.tsv : simplified description of the clustering process. Output from functionInk.
+- HistCompact-NL_Average_StopStep-#_network_data.tsv simplified description of the clustering process, stopping at the step at which the maximum partition density is reached. Output from functionInk.
+- HistExtend-NL_Average_NoStop_#_network_data.tsv detailed description of the clustering process. Output from functionInk.
+- HistExtend-NL_Average_StopStep_#_network_data.tsv detailed description of the clustering process, stopping at the step at which the maximum partition density is reached. Output from functionInk.
+- Nodes-Similarities_#_network_data.tsv : functionInk output describing similarities between nodes.
+- Partition-NL_Average-StopStep-#_network_data.tsv : functionInk output describing which cluster each ASV belongs to.
 
 ## Contact
 Matthew Shaun Grainger
