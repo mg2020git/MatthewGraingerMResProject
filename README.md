@@ -13,6 +13,8 @@ This project investigates the reproducibility of microbial community assembly us
 
 ### Dependencies within R
 - ggplot2 3.4.4
+- irr
+- lpSolve
 
 ### FlashWeave
 PLACEHOLDER
