@@ -1,0 +1,10 @@
+ATP7, ASV
+
+Call:
+ randomForest(x = xIn, y = yIn, ntree = optimal_ntree, mtry = optimal_nvar,      importance = T, proximity = T) 
+               Type of random forest: regression
+                     Number of trees: 10000
+No. of variables tried at each split: 750
+
+          Mean of squared residuals: 2.231161
+                    % Var explained: 23.46

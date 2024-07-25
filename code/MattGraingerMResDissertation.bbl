@@ -1,0 +1,37 @@
+\begin{thebibliography}{}
+
+\bibitem[Konopka, 2009]{Konopka2009}
+Konopka, A. (2009).
+\newblock What is microbial community ecology?
+\newblock {\em The ISME Journal}, 3(11):1223--1230.
+
+\bibitem[Pascual-Garc{\'\i}a et~al., 2023]{Pascual-Garc}
+Pascual-Garc{\'\i}a, A., Rivett, D., Jones, M.~L., and Bell, T. (2023).
+\newblock Replaying the tape of ecology to domesticate wild microbiota.
+\newblock {\em bioRxiv}.
+
+\bibitem[Pascual‐García and Bell, 2020]{functionink}
+Pascual‐García, A. and Bell, T. (2020).
+\newblock functionink: An efficient method to detect functional groups in
+  multidimensional networks reveals the hidden structure of ecological
+  communities.
+\newblock {\em Methods in Ecology and Evolution}, 11.
+
+\bibitem[Tackmann et~al., 2019]{TACKMANN2019286}
+Tackmann, J., {Matias Rodrigues}, J.~F., and {von Mering}, C. (2019).
+\newblock Rapid inference of direct interactions in large-scale ecological
+  networks from heterogeneous microbial sequencing data.
+\newblock {\em Cell Systems}, 9(3):286--296.e8.
+
+\bibitem[Widder et~al., 2016]{Widder2016}
+Widder, S., Allen, R.~J., Pfeiffer, T., Curtis, T.~P., Wiuf, C., Sloan, W.~T.,
+  Cordero, O.~X., Brown, S.~P., Momeni, B., Shou, W., Kettle, H., Flint, H.~J.,
+  Haas, A.~F., Laroche, B., Kreft, J.-U., Rainey, P.~B., Freilich, S.,
+  Schuster, S., Milferstedt, K., van~der Meer, J.~R., Gro$\beta$kopf, T.,
+  Huisman, J., Free, A., Picioreanu, C., Quince, C., Klapper, I., Labarthe, S.,
+  Smets, B.~F., Wang, H., Soyer, O.~S., and Fellows, I. N.~I. (2016).
+\newblock Challenges in microbial ecology: building predictive understanding of
+  community function and dynamics.
+\newblock {\em The ISME Journal}, 10(11):2557--2568.
+
+\end{thebibliography}
