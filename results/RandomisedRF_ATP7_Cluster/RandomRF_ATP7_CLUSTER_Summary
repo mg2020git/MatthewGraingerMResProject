@@ -1,0 +1,10 @@
+Randomised ATP7 Cluster
+
+Call:
+ randomForest(x = xIn, y = yIn, ntree = optimal_ntree, mtry = optimal_nvar,      importance = T, proximity = T) 
+               Type of random forest: regression
+                     Number of trees: 10000
+No. of variables tried at each split: 50
+
+          Mean of squared residuals: 2.249868
+                    % Var explained: 22.81

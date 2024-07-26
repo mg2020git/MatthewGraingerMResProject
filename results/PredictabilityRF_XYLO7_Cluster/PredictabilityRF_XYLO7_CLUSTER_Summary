@@ -1,0 +1,10 @@
+Predictability RF Xylo Cluster
+
+Call:
+ randomForest(x = xIn.train, y = yIn.train, ntree = optimal_ntree,      mtry = optimal_nvar, importance = T, proximity = T) 
+               Type of random forest: regression
+                     Number of trees: 10000
+No. of variables tried at each split: 50
+
+          Mean of squared residuals: 1.081024
+                    % Var explained: 67.7

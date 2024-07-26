@@ -20,7 +20,7 @@ select.func="log.ATP" # determine the function you want to predict. Name should 
 # the column name of the function data frame.
 select.cond=c("7.norm") # determine the function conditions you want to predict. Names should 
 #match those used to differentiate the different conditions within the function df.
-predictor.unit = "ASV" # ASV or cluster as predictor - only for use in naming output files
+predictor.unit = "Cluster" # ASV or cluster as predictor - only for use in naming output files
 replicate.train = "Split" # All replicates trained using OOB or used one replicate to predict other replicates. Only used for naming.
 just_func <- gsub("log.", "", select.func) # For plot titles
 just_cond <- gsub(".norm", "", select.cond) # for plot titles
