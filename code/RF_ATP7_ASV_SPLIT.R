@@ -161,29 +161,47 @@ RF.out <-randomForest(y=yIn.train,x=xIn.train,
 # Saving to a file
 saveRDS(RF.out, file = fileOut)
 
+
+
+
 ##### Comparing predictions and actual values #####
-predictions <- predict(RF.out, xIn.test)
-mse_of_predictions <- mean((predictions - yIn.test)^2)
-rsq_of_predictions <- cor(predictions, yIn.test)^2
-#cat("Mean Squared Error (MSE):", mse_of_predictions, "\n")
-#cat("R-squared:", rsq_of_predictions, "\n")
+predictions <- predict(RF.out, xIn.test) # Predicted function values
+residuals <- yIn.test - predictions # Residuals
+RSS <- sum(residuals^2) # Residual sum of squares
+TSS <- sum((yIn.test-mean(yIn.test))^2) # Total sum of squares
+variance_explained_R2 <- 1 - (RSS/TSS)
+mse_of_predictions <- mean((yIn.test - predictions)^2)
+RMSE <- sqrt(mse_of_predictions)
 
 
-# Save predictions, mse and R-squared value to files
+# Save predictions to file
 predictions_output_file <- paste("SPLIT_Predictions_", select.class, select.cond, 
                                  "_", predictor.unit,".csv", sep="")
-rsq_mse_output_file <- paste("SPLIT_RSquaredMSE_", select.class, select.cond,
-                             "_", predictor.unit,".txt", sep="")
 predictions_df <- data.frame(sampleid = sample.id.test, Actual = yIn.test, Predicted = predictions)
 write.csv(predictions_df, predictions_output_file, row.names = FALSE)
-cat("R-squared:", rsq_of_predictions, "\n", "MSE:", mse_of_predictions, "\n", file = rsq_mse_output_file)
 
+# Saving R-squared (% var explained), MSE and RMSE to a file 
+rsq_mse_output_file <- paste("SPLIT_FitStatistics_", select.class, select.cond,
+                             "_", predictor.unit,".txt", sep="")
+cat("R-squared:", variance_explained_R2, "\n", "MSE:", mse_of_predictions, "\n", 
+    "RMSE:",RMSE,"\n", file = rsq_mse_output_file)
 
+# Plot of Predictions against observed
+plotTitle <- paste0("Predicted vs Actual Values for ", select.func, select.cond,
+                    " using ", predictor.unit, " as predictors")
+p <- ggplot(predictions_df, aes(x=Actual, y=Predicted)) +
+  geom_point()+
+  geom_abline(slope=1, intercept=0, color = "red", linetype = "dashed") +
+  labs(title = plotTitle,
+       x = "Actual values",
+       y = "Predicted Values") +
+  theme_minimal()
+FileName <- paste("SPLIT_PredictionsPlot_", select.class, select.cond, 
+                  "_", predictor.unit, ".pdf", sep = "")
+pdf(FileName)
+print(p)
+dev.off()
 
-
-
-
-##### Basic overview of the RF model trained on only rep1 #####
 ## Error plot
 plotOut=paste("SPLITPlot_Error_Class-",select.class,select.cond,
               "_",predictor.unit,"_",replicate.train,

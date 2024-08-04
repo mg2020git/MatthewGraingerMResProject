@@ -1,72 +1,271 @@
-\documentclass{article}
+\documentclass[11pt]{article}
 \usepackage{graphicx} % Required for inserting images
 \usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{setspace}  % For line spacing adjustments
 
-\title{Investigating the microbial community reproducibility: a network-based approach}
+\title{Investigating the role of core microbial functional groups in the reproducibility of microbial community structure and function}
 \author{Matthew Shaun Grainger}
 \date{February 2024}
-
 \begin{document}
-
+\onehalfspacing
 \maketitle
 
 \section{Introduction}
 
-Microbial communities, groups of microbial taxa that share and interact within the same environment, underpin all life on Earth \citep{Konopka2009, Widder2016}. Together, the microbes within a given community contribute to a range of ecosystem functions.
-They drive the biogeochemical cycles within Earth's water, soil, and air NEED CITATION. They also directly contribute to disease suppression, soil fertility, plant growth, carbon sequestration, fermentation, and bioremediation NEED CITATION. Because microbial communities have such a range of important functions, there has been considerable interest in controlling them.
+Microbial communities are groups of microbial taxa that share and interact within the same environment, and they underpin all life on Earth \citep{Konopka2009, Widder2016, Nemergut2013-uw}. Microbial communities in nature contribute to a range of ecosystem functions, such as by driving the biogeochemical cycles on Earth. They contribute to disease suppression, soil fertility, plant growth and carbon sequestration \citep{Sokol2022}. In addition to providing key ecosystem functions within natural environments, microbial communities are also used within a range of industries for direct human-benefit. They are used in bioremediation to remove heavy metals from wastewater \citep{SHARMA2021101826}, as biofertilizers for crops \citep{biofertilizer}, in the fermentation of a range of food and drink products \citep{WOLFE201549}, and in several other health, agricultural, and environmental applications. The widespread importance of microbial community functions has prompted significant study into how these functions can be controlled.
 
-There are a number of different ways in which microbial communities can be influenced for the benefit of humans. Probiotics are selections of microbial organisms that are introduced into a target environment, with the intention of directly incorporating them into the resident community NEED CITATION. Prebiotics on the other hand are substances that facilitate the growth of desired microbes, modifying the microbial community more indirectly NEED CITATION. A third approach is via the use of microbial community transplants, which involves the introduction of an entire existing microbial community into a target environment. This has the advantage of preserving microbial interactions and community stability NEED CITATION. All three of these methods rely on the fact that different microbes, and different entire microbial communities, have been linked to different qualities of ecosystem function. NEED CITATION. They also all rely upon the mechanisms of microbial community assembly.
+If microbial communities are to be used reliably for human-benefit, their desirable functions need to be reproducible. THIS HAS BEEN SHOWN... EXAMPLES OF MICROBIAL COMMUNITY REPRODUCIBILITY...
+There are currently three main ways of reproducing microbial communities. Probiotics are selections of one or more microbial strains that are introduced into a target environment. The strains that are chosen are each associated with a desired ecosystem function, and they are introduced with the intention of providing this function within the target environment \citep{Pandey2015-rf, Sanders2019}. Taking this one step further, a whole community transplant involves the introduction of an entire microbial community into a target environment. Again, the community that is chosen has a desired ecosystem function that is intended to be transferred to the target environment \citep{Jiang2022, doi:10.1128/mbio.00893-14}. While both probiotics and whole community transplants involve the direct inoculation of microbes into an environment, prebiotics involve the addition of substances into the target environment. These substances are intended to promote the growth of microbes that have desired ecosystem functions within a target environment (probiotics and prebiotics are sometimes also administered together, under the name of synbiotics) \citep{Pandey2015-rf, Sanders2019}. All three of these methods change the function of a microbial community by changing its structure
 
-Microbial community assembly needs to be reproducible if microbial communities are to be reliably controlled and applied. For probiotics and whole-community transplants to succeed, the introduced microbes need to be able to assemble into a community within the target environment. For prebiotics to succeed, the addition of a chosen substance into the target environment needs to change the composition and function of the target community. If they are to be reliably used, these methods need to yield the same results each time that they are employed. For example, applying a given probiotic to a field needs to impact the yield of a target crop in the same way each time that it is used.
+Analogously to how genotype determines phenotype, the structure of a microbial community plays a major role in determining its function, and so this structure needs to be reproduced if its desired function is to be reproduced. Microbial community structure is typically described by the composition of taxa found within the community, and communities with different compositions often have different functions \citep{Strickland2009-go}. This is in part because certain taxa provide their own, individual, functions, however it can also be due to higher order effects. The microbial species within a community may interact with each other, either positively via cross-feeding, or negatively via competition, allelopathy or predator-prey relationships \citep{Fuhrman2009}. This can result in different ecosystem functioning to what would be conferred only by the sum of the functioning of the individual taxa. Some microbes are referred to as being keystone, due to providing a disproportionate effect upon microbial community structure and function via direct functional benefits and or large quantities of interactions with other microbes. Sometimes groups of microbes can be keystone, forming a core microbiome (or functional group) that is associated with a particular environment or ecosystem function. Both individual keystone taxa and core functional groups can be found to drive the assembly of microbial community structure and function \citep{Banerjee2018, Toju2018}. This assembly is itself a complicated process, which is not only driven by composition, but also by diversification, dispersal, selection and drift \citep{Nemergut2013-lo}. Increasing our understanding of the role of community composition in this assembly process is crucial in understanding its role in the structural and functional reproducibility of communities.
 
-Microbial communities are incredibly complex, and they are dynamic across both space and time. Different communities can be found in different habitats across both the macroscale and the microscale NEED CITATION.
-The microbial community within a given space will also change over time, due to changes in the environment, and stochastic events NEED CITATION.
-A given microbial community has a huge diversity of microbes, so there may be variation due to chance NEED CITATION.
-Given all of the factors involved in the determination of microbial communities, it is important to know whether they can be reliably reproduced.
-
-Here, I investigated the reproducibility of microbial communities from tree holes.
+Here, I investigated the role of core microbial functional groups in microbial community structural assembly and in microbial community function. To do this, I answered a number of questions using a large data set of bacterial communities, from the small freshwater pools found within tree holes.
+THESE TREE HOLE COMMUNITIES HAD BEEN SHOWN TO BE REPRODUCIBLE...
+I first evaluated whether there was a core functional group of interacting bacteria found across the starting and final time points of the communities, with an interest in the interactions between this group and peripheral groups of bacteria. This was intended to elucidate the role of interactions in community structural assembly. It was more specifically intended to interpret whether the presence of particular taxa in the starting communities promoted or inhibited the presence of the core functional group, and whether the core functional group was itself responsible for promoting or inhibiting taxa in the final communities. In this way, the core functional group would serve as a mediator between the initial community composition and the final community composition. The second set of questions investigated whether functional groups of interacting bacteria were able to predict microbial community function. This involved comparing ASV abundances and functional group abundances in their ability to predict ecosystem function. Perhaps functional groups would be better able to explain microbial community function than ASVs on their own, due to their incorporation of non-additive interaction effects. 
 
 \section{Methods}
 \subsection{Data}
-Bacterial amplicon sequence variant (ASVs) abundance table sourced from \cite{Pascual-Garc}. In brief, this table contains the abundances of ASVs from 275 bacterial communities within the rainwater pools of beech tree roots (Fagus sylvatica). Each community was grown in a sterile beech leaf medium, and incubated at 22°C under static conditions for 1 week so that they could reach stationary phase. The communities were then cryopreserved. Following cryopreservation, each of the 275 communities were revived four times (to provide four replicates), and incubated under static conditions at 22°C for 7 days. Samples of the 275 stationary state communities were taken prior to cryopreservation, and samples of all of the replicates of these 275 communities were taken at the end of the 7 day growth period that followed their revival. The ASV abundance table contains the abundances of NUMBER ASVs within each of the 275 initial samples and in each of the 1100 final samples.
+Bacterial amplicon sequence variant (ASVs) abundance table sourced from \cite{Pascual-Garc}. In brief, this table contains the abundances of ASVs from 275 bacterial communities within the rainwater pools of beech tree roots (\textit{Fagus sylvatica}). The communities were extracted, grown in a sterile beech leaf medium, and incubated at 22°C under static conditions for 1 week so that they could reach stationary phase. The communities were then cryopreserved. Following cryopreservation, each of the 275 communities were revived four times and at the same time to provide four replicates, and incubated under static conditions at 22°C for 7 days. Samples of the 275 stationary state communities were taken prior to cryopreservation, and samples of all of the replicates of these 275 communities were taken at the end of the 7 day growth period that followed their revival. The community composition of each of the samples was determined via sequencing the V4 region of the 16S rRNA gene, and by quality filtering using the DADA2 pipeline in R. NEED CITATION.
+The ASV abundance table contains the abundances of 1209 ASVs within each of the 275 initial samples and in each of the 1100 final samples.
+
+Various functional measurements of a subset of the communities that were revived and grown for 7 days were also taken. These included the cell count and the concentrations of ATP and xylosidase after 7 days. This community function data was sourced from \citep{Pascual-García2020}.
 
 The metadata table that accompanies the ASV abundance table was also sourced from \cite{Pascual-Garc}. This metadata table contains information upon both whether each sample is from before cryopreservation or after it, as well as information upon the community class of each sample. In short, these community classes are clusters of communities based upon Jensen-Shannon divergence. They were determined via Partition Around Medoids clustering to reach the classification that showed the highest quality, according to the Calinski-Harabasz index. The bacterial communities clustered in compositional space according to their collection location and date, which means that the different community classes reflect the slightly different environmental conditions from which different tree hole communities originated. In my investigation, therefore, I treat community classes as a proxy for the environment.
 
 \subsection{Inferring interactions between ASVs}
 Split the ASV table and metadata table by pre-cryopreservation (starting) samples and post-cryopreservation (final) samples, converted them into the correct format, and inputted them separately into FlashWeave. FlashWeave is a method for inferring direct interactions between bacteria in heterogeneous systems, via a local-to-global learning approach. It determines which ASVs are directly interacting within a network, and excludes indirect connections between a pair of ASVs that are due to shared connections with other ASVs. FlashWeave has been compared to other state-of-the-art methods for inferring microbial interactions, such as SparCC and SpiecEasi, where it has shown both an increased prediction performance on a variety of synthetic data sets, and an improved reconstruction of expert-curated interactions from the TARA Oceans project \citep{TACKMANN2019286}. 
 Here, I applied two versions of FlashWeave to both the ASV table from the starting samples and the ASV table from the final samples. The first version of FlashWeave that I applied was FlashWeave-S, intended for homogeneous data that is largely unaffected by different treatments. For this version of FlashWeave, I supplied no metadata table, with the intention of ignoring the presence of community classes. The second version of FlashWeave that I applied to the tables was FlashWeaveHE-S, which is intended to be applied to heterogeneous data with moderate numbers of samples (hundreds to thousands). The community class of each sample was used as the only meta variable. 
-Both versions of FlashWeave output a table of all the direct interactions that are recovered from between all possible pairs of ASVs. This means that ASVs that do not have any inferred direct interactions are excluded from the FlashWeave output tables. For FlashWeaveHE-S, the community classes were included in the table of interactions as if they were ASVs.
+Both versions of FlashWeave output a table of all the inferred direct interactions that were recovered from between all possible pairs of ASVs. This means that ASVs that did not have any inferred direct interactions were excluded from the FlashWeave output tables. For FlashWeaveHE-S, the community classes were included in the table of interactions as if they were ASVs.
 
-\subsection{Detecting bacterial communities}
-Used functionInk to identify communities of bacteria within each network (one network for each application of FlashWeave). This involved converting the interaction tables into the correct format, including via the addition of a 'Type' column. This modified interaction table was then inputted into the detailed pipeline of functionInk, specifying that the interactions were weighted, undirected, and typed. This pipeline identifies ASVs that are structurally equivalent, and groups them into clusters that represent communities. For a pair of ASVs to be structurally equivalent, they need to share the same types of links (interactions) with the same neighbours \citep{functionink}. Here, different types of links were based upon both whether the interaction was positive or negative, and on whether it was between two ASVs, between a community class and an ASV, or between two community classes. This type was stored in the 'Type' column. There was also an additional type for if there were discrepancies between the networks in terms of whether an interaction was positive or negative.
+\subsection{Detecting bacterial functional groups}
+Used functionInk to identify communities of bacteria within each of the four networks (one network for each application of FlashWeave). This involved converting the interaction tables into the correct format, including via the addition of a 'Type' column. This modified interaction table was then inputted into the detailed pipeline of functionInk, specifying that the interactions were weighted, undirected, and typed. This pipeline identifies ASVs that are structurally equivalent, and groups them into clusters that represent communities. For a pair of ASVs to be structurally equivalent, they need to share the same types of links (interactions) with the same neighbours \citep{functionink}. Here, different types of links were based upon both whether the interaction was positive or negative, and on whether it was between two ASVs, between a community class and an ASV, or between two community classes. This type was stored in the 'Type' column. There was also an additional type for if there were discrepancies between the networks in terms of whether an interaction was positive or negative.
 
-The functionInk pipeline outputs the cluster that each ASV was grouped into, as well as a measure of the partition densities of the network. If a network has a higher external partition density, it mainly contains guilds, and if a network has a higher internal partition density, it mainly contains modules. Guilds are communities of bacteria that are clustered due to their shared interactions with bacteria outside of the guild; a high external partition density indicates that there are many links between members of a guild and members of another community. On the other hand, modules are communities of bacteria that interact predominantly with other members of the module, rather than to external communities; a high internal partition density indicates that there are many links between members of the same module \citep{functionink}. Here, I ran the functionInk pipeline for each network until the step at which the maximum internal partition density was reached.
+The functionInk pipeline outputs the cluster that each ASV was grouped into, as well as a measure of the partition densities of the network. If a network has a higher external partition density, it mainly contains guilds, and if a network has a higher internal partition density, it mainly contains modules. Guilds are communities of bacteria that are clustered due to their shared interactions with bacteria outside of the guild; a high external partition density indicates that there are many links between members of a guild and members of another community. On the other hand, modules are communities of bacteria that interact predominantly with other members of the module, rather than to external communities; a high internal partition density indicates that there are many links between members of the same module \citep{functionink}. Here, I ran the functionInk pipeline for each network until the step at which the maximum internal partition density was reached. This was because the maximum internal partition density was higher than that of the maximum external partition density, and contributed more to the maximum total partition density.
 
-\subsection{Network comparison}
+\subsection{Initial network comparison}
 Calculated various metrics to describe the four networks. These included the number of ASVs within each network, the number of ASVs shared between each pair of networks, the number of positive and negative interactions within each network, the number of positive and negative interactions shared between each pair of networks, and the number of clusters within each network. Additionally used Cohen's Kappa to measure the agreement between each pair of networks in terms of which ASVs were present, the sign of the interaction (positive or negative) between pairs of ASVs that were found within both networks, whether a given pair of ASVs that were found within both networks were found within the same cluster, and whether a given pair of ASVs that were positively correlated within both networks were found within the same cluster.
 
-\subsection{Identifying the core community}
-Removed the weightings from the interactions within the interaction tables for the starting sample and final sample networks that were produced by FlashWeaveHE-S, such that they were described as either '1' for positive or '-1' for negative. Combined these interaction tables, added a 'Type' column, and inputted the resulting table into the detailed pipeline of functionInk. Added an additional column for the networks) within which each interaction was found, and used this to visualise the network in Cytoscape. Similarly added a column for the network(s) in which each ASV was found, as well as information upon whether it was an ASV or a community class node, to the functionInk output file that provides information upon the cluster that each ASV is found in. This was used as the network table for Cytoscape.
+\subsection{Identifying core functional groups}
+Upon completion of the previous initial network comparison, the incorporation of community classes as environmental variable proxies was found to largely reduce the number of inferred interactions. Therefore, further analysis proceeded using only the two interaction tables that were produced by heterogeneous flashWeave. 
 
-Used the network visualisation to identify clusters of bacteria with large numbers of interactions.
+To identify whether there were any core microbial functional groups driving the change between starting communities and final communities, a combined network including both starting and final communities was constructed. This first involved removing the weightings from the interactions within the interaction tables for the starting sample and final sample networks that were produced by FlashWeaveHE-S, such that interactions were described as either '1' for positive or '-1' for negative. I next merged these interaction tables, added a 'Type' column, and inputted the resulting table into the detailed pipeline of functionInk. Added an additional column for the network(s) within which each interaction was found, and used this to visualise the network in Cytoscape. Similarly added a column for the network(s) in which each ASV was found, as well as information upon whether it was an ASV or a community class node, to the functionInk output file that provides information upon the cluster that each ASV is found in. This was used as the network table for Cytoscape.
 
+Used the network visualisation to identify clusters of bacteria with large numbers of interactions, and to infer the members of a 'core functional group'. Organised the ASVs into groups based upon their clusters, then identified ASVs that were linked to entire larger clusters of ASVs and peripheral ASVs with fewer links. The resulting visualisation highlights ASVs and clusters of ASVs that appear to be involved in interactions that drive changes in community composition.
 
-
-
+\subsection{Predicting function using the abundances of functional groups}
+Compared the ability of ASV abundances and the abundances of functional groups to predict community-level functions. Performed random forest regression using the randomForest package in R, and used the randomForestExplainer package to analyse the resulting model NEED CITATIONS. Four models were constructed: two using the relative abundances of ASVs across the final community samples as predictors, and two using the relative abundances of functional groups across the final community samples as predictors. These functional group abundances were calculated as the sum of the abundances of the ASVs within them. Each set of predictors was then used to predict the log normalised concentration of ATP, and the log normalised concentration of xylosidase (an enzyme involved in the hemicellulose digestion pathway).
 
 \section{Results}
+\subsection{There are clusters of interacting bacteria found across starting and final communities}
 
-#
+There was a difference in the ASVs that were found to be interacting between the starting and final communities.
+Using Cohen's Kappa to compare the presence or absence of interacting ASVs between the starting and final networks that were derived from homogeneous FlashWeave, the kappa value was \(\kappa = -0.17\), 95\% CI [-0.19, -0.16], indicating a slight difference in which ASVs were present. When comparing the presence or absence of interacting ASVs between the starting and final networks that were derived from heterogeneous FlashWeave (which incorporated community classes as a metavariable), this difference was increased, with a kappa value of \(\kappa = -0.45\), 95\% CI [-0.51, -0.39]. The presence and absence of interacting ASVs between the networks produced by homogeneous FlashWeave and the corresponding networks produced by heterogeneous FlashWeave were the same, each with the a kappa value of \(\kappa = -0\), 95\% CI [0, 0].
 
-\section{Discussion and Conclusion}
+Each of the four networks had predominantly positive interactions, as shown in Table #. In the starting network produced by homogeneous FlashWeave 97.5\% of interactions were positive, in the starting network produced by by heterogeneous FlashWeave 82.7\% of interactions were positive, in the final network produced by homogeneous FlashWeave 94.3\% of the interactions were positive and in the final network produced by heterogeneous FlashWeave 80.8\% of interactions were positive. 
 
-improve crop yield, produce pharmaceuticals, food and beverage production, treat wastewater, treat industrial waste,biological control of pests and diseases
+The networks produced by heterogeneous FlashWeave using community classes as metavariables had much fewer interactions than their homogeneous FlashWeave counterparts, as shown in Table #. The starting network produced by heterogeneous FlashWeave had 92\% less interactions than that produced by homogeneous FlashWeave, and the final network produced by homogeneous FlashWeave had 83.5\% less interactions than that produced by homogeneous FlashWeave.
 
-also contribute to human health, agriculture, and industry. They are involved in soil fertility, plant growth, carbon sequestration, bioremediation, waste treatment, food and drink manufacturing, and disease suppression. NEED CITATION
+\begin{table}[h]
+\centering
+\caption{Numbers and types of interactions between bacteria in the four initial networks}
+\label{tab:sample}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+FlashWeave Mode & Community Timepoint & Positive links & Negative links & Total links \\
+\hline
+Homogeneous & Starting & 7272 & 186 & 7458 \\
+Heterogeneous & Starting & 489 & 102 & 591 \\
+Homogeneous & Final & 8430 & 514 & 8944 \\
+Heterogeneous & Final & 1193 & 284 & 1477 \\
+\hline
+\end{tabular}
+\end{table}
+
+For the pairs of ASVs that were found within both the starting and final networks that were produced by heterogeneous FlashWeave, Cohen's kappa showed a perfect agreement in the types of interactions between the networks \(\kappa = 1\), 95\% CI [1, 1]. There was a slightly lower agreement between the starting and final networks that were produced by homogeneous FlashWeave, which had a kappa value of \(\kappa = 0.71\), 95\% CI [0.43, 0.98]. There was a high agreement between the both of the final networks \(\kappa = 0.93\), 95\% CI [0.86, 1], but no agreement between both of the starting networks \(\kappa = -0.02\), 95\% CI [-0.04, 0.01]. A higher number of positive interactions were shared between the networks, as shown in Table #, such that the proportion of shared interactions between each pair of networks that were positive was very similar to the intermediate of the percentage of interactions that were positive in each of the individual networks. The percentage of interactions that were shared between the two starting networks was 96.6\%, between the two final networks was 93.0\%, between the homogeneous starting and final networks was 96.8\% and between the heterogeneous starting and final networks was 94.0\%.
+
+\begin{table}[h]
+\centering
+\caption{Numbers and types of interactions shared between the four initial networks}
+\label{tab:sample}
+\begin{tabular}{|c|c|c|c|}
+\hline
+Pair & Positive links & Negative links & Total shared links \\
+\hline
+Homogeneous Starting - Homogeneous Final & 269 & 5 & 278 \\
+Heterogeneous Starting - Heterogeneous Final & 47 & 3 & 50 \\
+Homogeneous Starting - Heterogeneous Starting & 86 & 0 & 89 \\
+Homogeneous Final - Heterogeneous Final & 356 & 23 & 383 \\
+\hline
+\end{tabular}
+\end{table}
+
+When investigating whether the ASVs that were shared between each pair of networks were placed within the same cluster (such as whether ASV-A and ASV-B are in the same cluster within both network-A and network-B), there was little agreement between the networks. When considering only ASV pairs that were linked via a positive interaction, there was still little agreement. Here, the highest agreement was between the starting and final networks produced by heterogeneous FlashWeave, as shown in Table #. There was also a high agreement between the two starting networks.
+
+\begin{table}[h]
+\centering
+\caption{Agreement between the networks upon whether interacting pairs of ASVs were present within the same cluster}
+\label{tab:sample}
+\begin{tabular}{|c|c|c|}
+\hline
+Pair & Interactions & Kappa \\
+\hline
+Homogeneous Starting - Homogeneous Final & All & 0.02 ≤ 0.03 ≤ 0.04 \\
+Homogeneous Starting - Homogeneous Final & Positive & 0.0 ≤ 0.13 ≤ 0.25 \\
+Heterogeneous Starting - Heterogeneous Final & All & 0.01 ≤ 0.04 ≤ 0.08 \\
+Heterogeneous Starting - Heterogeneous Final & Positive & -0.02 ≤ 0.27 ≤ 0.56 \\
+Homogeneous Starting - Heterogeneous Starting & All & 0.10 ≤ 0.13 ≤ 0.15 \\
+Homogeneous Starting - Heterogeneous Starting & Positive & 0.21 ≤ 0.41 ≤ 0.61 \\
+Homogeneous Final - Heterogeneous Final & All & 0.04 ≤ 0.06 ≤ 0.07 \\
+Homogeneous Final - Heterogeneous Final & Positive & -0.15 ≤ -0.06 ≤ 0.04 \\
+\hline
+\end{tabular}
+\end{table}
+
+LOOK AT THE SPECIFIC ASV pairs THAT HAD POSITIVE INTERACTION AND WERE IN SAME CLusTER IN EACH COMMUNITY E.G. FROM STARTING-FINAL POSITIVE PAIRS
+
+There were far fewer ASVs in the networks produced by heterogeneous FlashWeave than those produced by homogeneous FlashWeave. There were 1284 ASVs in the starting network produced by homogeneous FlashWeave, 1207 ASVs in the final network produced by homogeneous FlashWeave, 304 ASVs in the starting network produced by heterogeneous FlashWeave and 506 in the final network produced by heterogeneous FlashWeave. While the starting network produced by homogeneous FlashWeave had more ASVs than the final network produced by homogeneous FlashWeave, the final network produced by heterogeneous FlashWeave had more ASVs than the starting network produced by heterogeneous FlashWeave.
+
+The starting network and final network produced by homogeneous FlashWeave had a greater proportion of shared ASVs than those produced by heterogeneous FlashWeave. There were 1023 ASVs shared between the starting network and the final network produced by homogeneous FlashWeave, 163 ASVs shared between the starting network and the final network produced by heterogeneous FlashWeave, 304 ASVs shared between the two starting networks, and 506 ASVs shared between the two final networks. Taking the maximum number of shared ASVs as the number of ASVs in the smaller network of the pair, the percentage of shared ASVs out of the total possible shared ASVs was 84.8\% for the homogeneous FlashWeave starting and final networks, 53.6\% for the heterogeneous FlashWeave starting and final networks, 100\% for the starting networks and 100\% for the final networks.
+
+The final networks had fewer clusters than their corresponding starting networks, and both starting and final networks produced by heterogeneous FlashWeave had a greater number of clusters than their homogeneous FlashWeave counterparts. There were 281 clusters in the starting network produced by homogeneous FlashWeave, 93 clusters in the final network produced by homogeneous FlashWeave, 453 clusters in the starting network produced by heterogeneous FlashWeave, and 143 clusters in the final network produced by heterogeneous FlashWeave.
+
+SIZE DISTRIBUTION OF CLUSTERS IN EACH NETWORK
+
+For all of the networks, the internal partition density was the highest, as shown in Table #. The starting network produced by heterogeneous had the highest total partition density by a large margin, and the second highest partition density was found in the final network produced by heterogeneous FlashWeave.
+
+\begin{table}[h]
+\centering
+\caption{Partition densities of networks.}
+\label{tab:sample}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Time stage & FlashWeave mode & Internal partition density & External partition density & Total partition density \\
+\hline
+Starting & Homogeneous & 0.08 & 0.05 & 0.11 \\
+Final & Homogeneous & 0.09 & 0.04 & 0.13 \\
+Starting & Heterogeneous & 0.16 & 0.12 & 0.22 \\
+Final & Heterogeneous & 0.11 & 0.05 & 0.13 \\
+\hline
+\end{tabular}
+\end{table}
 
 
-----
+To be incl.
+- For the four initial networks:
+    - Number (and types) of interactions
+    - Number of ASVs
+    - Partition densities
+    - Numbers of clusters
+    MAYBE INCL. DIVERSITY METRICS OF STARTING VS FINAL
+- For the combined network:
+    - Number (and types) of interactions
+    - Number of ASVs
+    - Number of clusters
+    - Partition density
+    - Distribution of cluster size
+    - ASVs with the highest number of interactions and the clusters they belong to
+    - Whole-network visualisation
+    - SIZE DISTRIBUTION OF CLUSTERS
 
+
+    
+\subsection{The abundances of clusters and of ASVs had a similar ability to predict community-level functions}
+The optimised random forests suggested that both ASVs and clusters of ASVs were able to predict community-level functions. For a given function, both ASVs and clusters explained a very similar level of variance, as show in Table #, and their predictions had a very similar mean squared error. Having noted this, the clusters did explain a slightly lower percentage variance and their predictions had a slightly higher mean squared error.
+
+\begin{table}[h]
+\centering
+\caption{Explanatory ability of optimised random forests for predicting community-level function from the abundances of either ASVs or clusters of ASVs}
+\label{tab:sample}
+\begin{tabular}{|c|c|c|c|}
+\hline
+Predictors & Function & R^2 & MSE \\
+\hline
+ASVs & ATP & 0.24 & 2.33 \\
+Clusters & ATP & 0.20 & 2.31 \\
+ASVs & Xylosidase & 0.58 & 1.15 \\
+Clusters & Xylosidase & 0.54 & 1.27 \\
+\hline
+\end{tabular}
+\end{table}
+
+For the random forest that predicted the ATP concentration from ASV abundances, the most important ASVs were found to be ASV-29, ASV-58, ASV-28
+
+AVS AND CLUSTERS THAT ARE IMPORTANT
+INSERT FIGURE OF MULTIWAY PLOT HERE #####
+
+The optimised random forests that used randomised clusters to predict community-level functions showed a similar effectiveness to the random forests with the observed clusters, as shown in Table #. Both the level of variance explained and the mean squared error values were very similar to those that were observed when using the real clusters as predictors.
+ASVS OR CLUSTERS THAT WERE IMPORTANT ....
+\begin{table}[h]
+\centering
+\caption{Explanatory ability of randomised clusters in predicting community-level function}
+\label{tab:sample}
+\begin{tabular}{|c|c|c|}
+\hline
+Function & R^2 & MSE \\
+\hline
+ATP & 0.23 & 2.23 \\
+Xylosidase & 0.52 & 1.30 \\
+\hline
+\end{tabular}
+\end{table}
+
+The random forests that were trained with only one replicate of the final communities, and tested upon the other three replicates in their ability to predict function were ineffective. They explained very little of the variance, as shown in Table # and Fig.#. Interestingly, the fit of each of these models to the replicate upon which they were trained was very similar to the fit of the optimised random forest models upon the combined data set of all replicates that they were trained upon. The model predicting ATP concentration using ASVs had an R^2 of 0.25 and an MSE of 2.16, the model predicting ATP concentration using clusters had an R^2 of # and an MSE of #, the model predicting xylosidase concentration using ASVs had an R^2 of 0.70 and an MSE of 1.0, and the model predicting xylosidase concentration using clusters had an R^2 of 0.68 and an MSE of 1.08.
+\begin{table}[h]
+\centering
+\caption{Ability of random forests trained on one set of replicates to predict function within other replicates.}
+\label{tab:sample}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Predictors & Function & R^2 & MSE & RMSE \\
+\hline
+ASVs & ATP & -0.06 & 3.05 & 1.75 \\
+Clusters & ATP & -0.02 & 2.93 & 1.71  \\
+ASVs & Xylosidase & 0.03 & 2.36 & 1.54 \\
+Clusters & Xylosidase & 0.06 & 2.27 & 1.51 \\
+\hline
+\end{tabular}
+\end{table}
+
+INSERT FIGURE OF PREDICTED VS ACTUAL HERE #######
+
+
+
+
+\section{UNFINISHED RESULTS}
+
+    
+- For the four optimal RFs:
+    - Mean of squared residuals and \% variance explained
+    - Predictors with highest MSE increase
+    - Predictors with highest node purity increase
+    - Multi-way importance plot of MSE increase, node purity increase, and average depth
+    - Interactions
+    - Information upon the link between the ASVs present in the clusters and their importance e.g. ASV-29 responsible for importance of cluster 36
+    - Curated section of combined network emphasising most important ASVs/clusters
+
+- For the randomized cluster RFs
+    - Mean of squared residuals and \% variance explained
+    - Predictors with highest MSE increase
+    - Predictors with highest node purity increase
+    - Multi-way importance plot of MSE increase, node purity increase, and average depth
+
+\section{UNFINISHED Discussion and Conclusion}
+
+To be incl. (OR NOT TO BE)
+
+OTHER STUFF INFLUENCE FUNCTION OTHER THAN COMPOSITION - LOOK AT Microbial community structure and its functional implications”
+- SAME COMPOSITION DIFFERENT EXPRESSION OF GENES
+- SAME FUNCTION DIFFERENT COMPOSITION
+IMPACT OF SEQUENCIGN DEPTH
+RARE TAXA ROLE
+ISSUES WITH CLASSIFYING MICROBES
+
+Microbial communities are incredibly complex, and they are dynamic across both space and time. Different communities can be found in different habitats across both the macroscale and the microscale NEED CITATION.
+The microbial community within a given space will also change over time, due to changes in the environment, and stochastic events NEED CITATION.
+A given microbial community has a huge diversity of microbes, so there may be variation due to chance NEED CITATION.
+Given all of the factors involved in the determination of microbial communities, it is important to know whether they can be reliably reproduced.
 
 Needs to include:
 - Methods used in microbial community ecology
@@ -80,6 +279,18 @@ Needs to include:
 - Alternative ways of characterising microbial communities (other than co-occurrence networks)
 - Alternative ways of co-occurrence (SparCC, SpiecEasi etc)
 - Explain pipeline - how does co-occurrence reflect microbial communities
+
+- The alternative individualistic concept is that many species co-occur in a habitat because they tolerate similar physical and chemical conditions and do not necessarily interact with each other \citep{Konopka2009}
+
+Priority effect - microbes present initially might change habitat, facilitating the next microbes \citep{Toju2018}
+
+READ:
+- Priority effects in microbiome assembly
+- Role of priority effects in the early-life assembly of the gut microbiota
+
+Desired microbial communities need to be reproducible if they are to be widely applied for human use. Recent research into microbial community reproducibility has shown the reproducibility of soil microbial communities, faecal microbial communities, and gut microbial communities. These studies typically involve replicate systems inoculated with the same microbes, and under the same conditions. Another such investigation by \citep{Pascual-Garc} has shown that groups of microbial communities that begin with similar compositions also have similar final compositions after an experimental period. Communities from 275 freshwater pools, found within the buttressing of beech tree roots, were grouped into 'community classes' based upon their compositions. They were then cryopreserved, resurrected, replicated, and allowed to grow in a beech leaf tea medium. Following their growth period, they were again grouped into community classes. Each tree hole reproducibly produced a similar final composition across its replicates, and tree holes from a given initial community class reproducibly resulted in communities from a given final community class. This showed a direct link between the initial composition of a community, and the final composition of the community. It also showed that communities with a given level of ecosystem function could be reproduced, as the two final community classes had divergent ecosystem functions.
+
+ONLY LOOKED AT BACTERIA.
 
 \bibliographystyle{apalike}
 \bibliography{mgthesisbiblio}

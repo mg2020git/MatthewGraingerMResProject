@@ -166,10 +166,13 @@ p <- plot_multi_way_importance(
   no_of_labels = 10,
   main = plotTitle
 )
-p <- p + xlab("Average depth") +ylab("Node purity increase") +
-  labs(
-    size = "MSE Increase (%)",          # Change legend title for size
-  )
+p <- p +
+  xlab("Average depth") +
+  ylab("Node purity increase") +
+  labs(size = "MSE Increase (%)") + # Change legend title for size
+  xlim(0,30) +
+  ylim(0,350)
+  
 print(p)
 dev.off() # Plots multiway importance
 

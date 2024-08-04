@@ -39,7 +39,7 @@ RF.out <- readRDS("/rds/general/user/mg2020/home/researchprojecthpc/OPTIMALRF_Cl
 importance.df <- measure_importance(RF.out) # Measure importance of variables in MULTIPLE METRICS
 rownames(importance.df) <- NULL
 ## Most important variables # DECIDE WHICH MEASURES OF IMPORTANCE TO USE + DECIDE HOW MANY VARIABLES TO USE (PROB BASED ON OPTIMAL NUM VAR)
-ASV.top <- important_variables(importance.df, k=20, measures = c("mean_min_depth", "times_a_root", "no_of_trees", "mse_increase", "node_purity_increase")) 
+ASV.top <- important_variables(importance.df, k=5, measures = c("mean_min_depth", "times_a_root", "no_of_trees", "mse_increase", "node_purity_increase")) 
 fileOut=paste("RFETopVar_",select.class,select.cond,
               "_",predictor.unit,"_",replicate.train,
               ".tsv",sep="") # Name of file
