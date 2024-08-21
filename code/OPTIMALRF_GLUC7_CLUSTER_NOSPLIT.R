@@ -31,6 +31,7 @@ library(stringr)
 library(ggplot2)
 library(randomForest)
 library(randomForestExplainer)
+library(ggrepel)
 
 # SOURCING FUNCTIONS
 source("/rds/general/user/mg2020/home/researchprojecthpc/clean_ASV_table.R")
@@ -83,7 +84,9 @@ xIn.tmp = xIn.tmp[,c(dim(xIn.tmp)[2],1:(dim(xIn.tmp)[2]-1))] # reorder so that t
 # Preparing cluster data for merging
 cluster_data = cluster_data[,1:2] # Getting rid of 'set' column
 cluster_counts <- table(cluster_data$functionInk) # Sizes of each cluster
+
 cluster_data <- cluster_data[cluster_data$functionInk %in% names(cluster_counts[cluster_counts >= 2]), ]
+
 # Merging
 xIn.tmp = merge(xIn.tmp, cluster_data, by = "ASV", all.x = FALSE) # Merging wiht cluster data by ASV
 xIn.tmp <- xIn.tmp[, -1] # Get rid of ASV column
@@ -100,14 +103,14 @@ col_names <- as.character(xIn.tmp[xIn.tmp$sampleid == 'functionInk', -1]) # Maki
 names(xIn.tmp)[-1] <- col_names # Making the clusters into column names
 xIn.tmp <- xIn.tmp[xIn.tmp$sampleid != 'functionInk', ] # Removing row that contains cluster names
 # Adding column with the logarithm of the number of reads in each sample
-xIn.tmp$counts = rowSums(xIn.tmp[,-1]) # add the sum of the counts for each sample as an additional predictor
-xIn.tmp$counts = log(xIn.tmp$counts) # log it to avoid having too high numbers
+xIn.tmp$Counts = rowSums(xIn.tmp[,-1]) # add the sum of the counts for each sample as an additional predictor
+xIn.tmp$Counts = log(xIn.tmp$Counts) # log it to avoid having too high numbers
 xIn = xIn.tmp # ASV table with only final samples, and a column for the log of the number of reads for each sample
 
 ## Modifying function data
 # Changing units
 data.func$mgCO2.7 <- data.func$mgCO2.7 * 1000 # Converting CO2 from miligr. to microgr.
-names(data.func)[names(data.func) == "mgCO2.7"] <- "μgCO2.7" # Changing column name accordingly
+names(data.func)[names(data.func) == "mgCO2.7"] <- "mCO2.7" # Changing column name accordingly
 data.func$ATP7 <- data.func$ATP7 / 1000 # Changing nanomolar to micromolar
 data.func$ATP14 <- data.func$ATP14 / 1000
 # Normalising by number of cells
@@ -116,14 +119,14 @@ data.func$mG7.norm <- data.func$mG7 / data.func$CPM7
 data.func$mN7.norm <- data.func$mN7 / data.func$CPM7
 data.func$mX7.norm <- data.func$mX7 / data.func$CPM7
 data.func$mP7.norm <- data.func$mP7 / data.func$CPM7
-data.func$μgCO2.7.norm <- data.func$μgCO2.7 / data.func$CPM7
+data.func$mCO2.7.norm <- data.func$mCO2.7 / data.func$CPM7
 # Taking log of normalised functions and cell count
 data.func$log.ATP7.norm <- log(data.func$ATP7.norm + 0.00001)
 data.func$log.mG7.norm <- log(data.func$mG7.norm + 0.00001)
 data.func$log.mN7.norm <- log(data.func$mN7.norm + 0.00001)
 data.func$log.mX7.norm <- log(data.func$mX7.norm + 0.00001)
 data.func$log.mP7.norm <- log(data.func$mP7.norm + 0.00001)
-data.func$log.μgCO2.7.norm <- log(data.func$μgCO2.7.norm + 0.00001)
+data.func$log.mCO2.7.norm <- log(data.func$mCO2.7.norm + 0.00001)
 # Selecting only the function and condition of interest e.g. ATP7
 functions.list <- colnames(data.func) # Columns in function data
 data.func.x <- data.frame(data.func[,grep(select.func, functions.list), drop = FALSE]) # Dataframe with only selected function
@@ -176,29 +179,62 @@ fileOut=paste("RFEVarImp_Class-",select.class,select.cond,
 rownames(importance.df) <- NULL
 write.table(importance.df,file=fileOut,sep = "\t",quote=FALSE, row.names = FALSE) # Write to file
 
+# Measure importance of variables by MSE, Node purity and mean min depth
+top10asvs <- important_variables(importance.df,
+                                 k = 10,
+                                 measures = c("mean_min_depth", "mse_increase", "node_purity_increase"),
+                                 ties_action = "draw")
+importance.df$colour_group <- ifelse(importance.df$variable %in% top10asvs, "Top 10 ASVs", "Other ASVs")
+top_10_data <- importance.df[importance.df$variable %in% top10asvs, ]
+
 ## Plot of multiway importance
-plotOut=paste("Plot_RFEMultiwayImp_Class-",select.class,select.cond,
-              "_",predictor.unit,"_",replicate.train,
-              ".pdf",sep="") # Plot file name
-plotTitle =  paste("Predicting ",just_func,just_cond,
-                   " using ",predictor.unit, " abundances"
-                   ,sep="") # Plot title name
-pdf(plotOut, height =6)
-p <- plot_multi_way_importance(
-  importance_frame = importance.df,
-  x_measure = "mean_min_depth",
-  y_measure = "node_purity_increase",
-  size_measure = "mse_increase",
-  min_no_of_trees = 0,
-  no_of_labels = 10,
-  main = plotTitle
-)
-p <- p +
-  xlab("Average depth") +
-  ylab("Node purity increase") +
-  labs(size = "MSE Increase (%)") + # Change legend title for size
-  xlim(0,30) +
-  ylim(0,350)
+p <- ggplot(importance.df, aes(x = mean_min_depth, y = node_purity_increase)) +
+  geom_point(aes(color = colour_group, size = mse_increase), shape = 16) +  # Map color and size
+  scale_color_manual(
+    name = "Predictor importance",  # Update legend title
+    values = c("Top 10 ASVs" = "blue", "Other ASVs" = "black"),  # Define colors
+    labels = c("Other Predictors", "Top 10 Predictors"),  # Match the labels to the colors
+    guide = guide_legend(
+      order = 1,  # Ensure this guide is first
+      override.aes = list(shape = 16)  # Ensure shape consistency
+    )
+  ) +
+  scale_size_continuous(
+    name = "MSE Increase",  # Update legend title
+    range = c(2, 10),       # Size range for points
+    limits = c(0, 1)        # Set limits for the size scale
+  ) +
+  geom_label_repel(
+    data = top_10_data,
+    aes(x = mean_min_depth, y = node_purity_increase, label = variable, color = colour_group),
+    size = 5, 
+    box.padding = 0.5, 
+    point.padding = 0.5, 
+    force = 50,  
+    segment.color = "grey50",
+    segment.size = 0.5,
+    fill = "white",
+    show.legend = FALSE,
+    max.overlaps = Inf
+  ) +
+  xlim(0, 30) +  # Set x-axis limits
+  ylim(0, 350) + # Set y-axis limits
+  xlab("Mean minimum depth") +  # Update x-axis label
+  ylab("Node purity increase") +  # Update y-axis label
+  ggtitle("Explaining variation in the glucosidase concentration per cell between microbial community samples using the abundances of subgroups") +  # Set the plot title dynamically
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 22, face = "bold"),  # Title size and style
+    axis.title.x = element_text(size = 18),  # X-axis title size
+    axis.title.y = element_text(size = 18),  # Y-axis title size
+    axis.text.x = element_text(size = 14),   # X-axis text size
+    axis.text.y = element_text(size = 14),    # Y-axis text size
+    legend.title = element_text(size = 16),  
+    legend.text = element_text(size = 14),   
+    legend.key.size = unit(1.5, "lines") 
+  )
+
+pdf("Plot_RFEMultiwayImp_GLUC_CLUSTER.pdf", height =6)
 print(p)
 dev.off() # Plots multiway importance
 

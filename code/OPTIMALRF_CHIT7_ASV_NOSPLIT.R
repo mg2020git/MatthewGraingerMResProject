@@ -31,6 +31,7 @@ library(stringr)
 library(ggplot2)
 library(randomForest)
 library(randomForestExplainer)
+library(ggrepel)
 
 # SOURCING FUNCTIONS
 source("/rds/general/user/mg2020/home/researchprojecthpc/clean_ASV_table.R")
@@ -70,8 +71,8 @@ id.t7 = grep("7D", sample_md$Experiment) # Indices of rows whcih are final commu
 samples.t7 = as.character(sample_md$sampleid[id.t7]) # Sampleids of final communities
 xIn.tmp = ASV.table[samples.t7, ] # ASV table containing only final communities
 # Adding column with the logarithm of the number of reads in each sample
-xIn.tmp$counts = rowSums(xIn.tmp) # add the sum of the counts for each sample as an additional predictor
-xIn.tmp$counts = log(xIn.tmp$counts) # log it to avoid having too high numbers
+xIn.tmp$Counts = rowSums(xIn.tmp) # add the sum of the counts for each sample as an additional predictor
+xIn.tmp$Counts = log(xIn.tmp$Counts) # log it to avoid having too high numbers
 xIn.tmp$sampleid = rownames(xIn.tmp) # create a new column for sampleid
 xIn = xIn.tmp # ASV table with only final samples, and a column for the log of the number of reads for each sample
 rownames(xIn) = seq(1,dim(xIn)[1]) # Row names are now numbers
@@ -148,31 +149,68 @@ fileOut=paste("RFEVarImp_Class-",select.class,select.cond,
               ".tsv",sep="") # Name of file
 rownames(importance.df) <- NULL
 write.table(importance.df,file=fileOut,sep = "\t",quote=FALSE, row.names = FALSE) # Write to file
+# importance.df <- read.table("RFEVarImp_Class-log.mN7.norm_ASV_AllRepTrain.tsv", header = TRUE, sep = "\t")
+
+# Measure importance of variables by MSE, Node purity and mean min depth
+top10asvs <- important_variables(importance.df,
+                                 k = 10,
+                                 measures = c("mean_min_depth", "mse_increase", "node_purity_increase"),
+                                 ties_action = "draw")
+importance.df$colour_group <- ifelse(importance.df$variable %in% top10asvs, "Top 10 ASVs", "Other ASVs")
+top_10_data <- importance.df[importance.df$variable %in% top10asvs, ]
 
 ## Plot of multiway importance
-plotOut=paste("Plot_RFEMultiwayImp_Class-",select.class,select.cond,
-              "_",predictor.unit,"_",replicate.train,
-              ".pdf",sep="") # Plot file name
-plotTitle =  paste("Predicting ",just_func,just_cond,
-                   " using ",predictor.unit, " abundances"
-                   ,sep="") # Plot title name
-pdf(plotOut, height =6)
-p <- plot_multi_way_importance(
-  importance_frame = importance.df,
-  x_measure = "mean_min_depth",
-  y_measure = "node_purity_increase",
-  size_measure = "mse_increase",
-  min_no_of_trees = 0,
-  no_of_labels = 10,
-  main = plotTitle
-)
-p <- p +
-  xlab("Average depth") +
-  ylab("Node purity increase") +
-  labs(size = "MSE Increase (%)") + # Change legend title for size
-  xlim(0,30) +
-  ylim(0,350)
-  
+p <- ggplot(importance.df, aes(x = mean_min_depth, y = node_purity_increase)) +
+  geom_point(aes(color = colour_group, size = mse_increase), shape = 16) +  # Map color and size
+  scale_color_manual(
+    name = "Variable importance",  # Update legend title
+    values = c("Top 10 ASVs" = "blue", "Other ASVs" = "black"),  # Define colors
+    labels = c("Other Variables", "Top 10 Variables"),  # Match the labels to the colors
+    guide = guide_legend(
+      order = 1,  # Ensure this guide is first
+      override.aes = list(shape = 16)  # Ensure shape consistency
+    )
+  ) +
+  scale_size_continuous(
+    name = "MSE Increase",  # Update legend title
+    range = c(2, 10),       # Size range for points
+    limits = c(0, 1)        # Set limits for the size scale
+  ) +
+  geom_label_repel(
+    data = top_10_data,
+    aes(x = mean_min_depth, y = node_purity_increase, label = variable, color = colour_group),
+    size = 5,  # Adjusted size to match font size 12
+    box.padding = 0.5, 
+    point.padding = 0.5, 
+    force = 50,  
+    segment.color = "grey50",
+    segment.size = 0.5,
+    fill = "white",
+    show.legend = FALSE,
+    max.overlaps = Inf
+  ) +
+  xlim(0, 30) +  # Set x-axis limits
+  scale_y_continuous(
+    limits = c(0, 350),  # Set y-axis limits
+    breaks = seq(0, 350, by = 50)  # Set y-axis intervals to go up by 50
+  ) +
+  xlab("Mean minimum depth") +  # Update x-axis label
+  ylab("Node purity increase") +  # Update y-axis label
+  ggtitle("D) Chitinase Production") +  # Add the plot title
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 16, face = "bold"),  # Title size and style
+    axis.title.x = element_text(size = 16),  # X-axis title size
+    axis.title.y = element_text(size = 16),  # Y-axis title size
+    axis.text.x = element_text(size = 12),   # X-axis text size
+    axis.text.y = element_text(size = 12),   # Y-axis text size
+    legend.title = element_text(size = 16),  
+    legend.text = element_text(size = 12),   
+    legend.key.size = unit(1.5, "lines"),
+    panel.border = element_rect(colour = "black", fill = NA, size = 1)  # Add border around the plot
+  )
+
+pdf("Plot_RFEMultiwayImp_CHIT_ASV2.pdf", height =6)
 print(p)
 dev.off() # Plots multiway importance
 
@@ -180,7 +218,7 @@ dev.off() # Plots multiway importance
 plotOut=paste("Plot_Error_Class-",select.class,select.cond,
               "_",predictor.unit,"_",replicate.train,
               ".pdf",sep="") # Name of file
-plotTitle =  paste("Predicting ",just_func,just_cond,
+plotTitle =  paste("Explaining ",just_func,just_cond,
                    " using ",predictor.unit, " abundances"
                    ,sep="") # Plot title name
 pdf(plotOut)

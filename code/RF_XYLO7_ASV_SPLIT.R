@@ -187,31 +187,57 @@ cat("R-squared:", variance_explained_R2, "\n", "MSE:", mse_of_predictions, "\n",
     "RMSE:",RMSE,"\n", file = rsq_mse_output_file)
 
 # Plot of Predictions against observed
-plotTitle <- paste0("Predicted vs Actual Values for ", select.func, select.cond,
-                    " using ", predictor.unit, " as predictors")
-p <- ggplot(predictions_df, aes(x=Actual, y=Predicted)) +
-  geom_point()+
-  geom_abline(slope=1, intercept=0, color = "red", linetype = "dashed") +
-  labs(title = plotTitle,
+#p <- ggplot(predictions_df, aes(x = Actual, y = Predicted)) +
+#  geom_point() +
+#  geom_abline(slope = 1, intercept = 0, color = "red", linetype = "dashed") +
+#  labs(title = "B) Xylosidase Production",
+#       x = "Actual values",
+#       y = "Predicted values") +
+#  xlim(-12, 2) +   # Set x-axis limits
+#  ylim(-12, 2) +   # Set y-axis limits
+#  coord_fixed(ratio = 1) +  # Ensure 1:1 aspect ratio
+#  theme_minimal() +
+#  theme(
+#    plot.title = element_text(size = 20, face = "bold"),  # Increase title size and make it bold
+#    axis.title.x = element_text(size = 16),               # Increase x-axis title size
+#    axis.title.y = element_text(size = 16)                # Increase y-axis title size
+#  )
+#pdf("PredictionPlot_XYLO_ASV.pdf")
+#print(p)
+#dev.off()
+
+p <- ggplot(predictions_df, aes(x = Actual, y = Predicted)) +
+  geom_point() +
+  geom_abline(slope = 1, intercept = 0, color = "red", linetype = "dashed") +
+  labs(title = "B) Xylosidase Production",
        x = "Actual values",
-       y = "Predicted Values") +
-  theme_minimal()
-FileName <- paste("SPLIT_PredictionsPlot_", select.class, select.cond, 
-                  "_", predictor.unit, ".pdf", sep = "")
-pdf(FileName)
+       y = "Predicted values") +
+  xlim(-12, 2) +   # Set x-axis limits
+  ylim(-12, 2) +   # Set y-axis limits
+  coord_fixed(ratio = 1) +  # Ensure 1:1 aspect ratio
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 20, face = "bold"),  # Increase title size and make it bold
+    axis.text.x = element_text(size = 14),  # Increase size of x-axis numbers
+    axis.text.y = element_text(size = 14),  # Increase size of y-axis numbers
+    axis.title.x = element_blank(),         # Remove x-axis label
+    axis.title.y = element_blank()          # Remove y-axis label
+  )
+
+pdf("PredictionPlot_XYLO_ASV2.pdf")
 print(p)
 dev.off()
 
 ## Error plot
-plotOut=paste("SPLITPlot_Error_Class-",select.class,select.cond,
-              "_",predictor.unit,"_",replicate.train,
-              ".pdf",sep="") # Name of file
-plotTitle =  paste("Predicting ",just_func,just_cond,
-                   " using ",predictor.unit, " abundances"
-                   ,sep="") # Plot title name
-pdf(plotOut)
-plot(RF.out) # Plot RF to file
-dev.off()
+#plotOut=paste("SPLITPlot_Error_Class-",select.class,select.cond,
+#              "_",predictor.unit,"_",replicate.train,
+#              ".pdf",sep="") # Name of file
+#plotTitle =  paste("Predicting ",just_func,just_cond,
+#                   " using ",predictor.unit, " abundances"
+#                   ,sep="") # Plot title name
+#pdf(plotOut)
+#plot(RF.out) # Plot RF to file
+#dev.off()
 
 ## Random forest explanation (overview) # MOST IMPORTANT THING # REMEMBER TO MANUALLY RENAME OUTPUT FILE SO NOT OVERWRITTEN
 #fileOut=paste("SPLITRFExplained-",select.class,select.cond,
